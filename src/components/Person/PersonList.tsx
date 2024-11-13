@@ -36,20 +36,32 @@ const PersonList = () => {
     previous: "",
     results: []
   });
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchPeople = async (url?: string) => {
+    try {
+      const data = await getPeople(url || '');
+      setPerson(data);
+    } catch (err) {
+      setError('Failed to fetch people data');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchPeople = async () => {
-      const data = await getPeople();
-      setPerson(data);
-    };
     fetchPeople();
   }, []);
+
+  if (loading) return <p className='text-center text-2xl mt-24'>Cargando lista de Personas...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div className="mx-auto mt-12">
       <div className='max-w-7xl m-auto text-center'>
         <h1 className='text-xl md:text-4xl text-green-700 font-bold pt-12'>
-          Person list
+          Lista de Personas
         </h1>
         <div className="mt-3 mb-8 w-full mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -69,7 +81,7 @@ const PersonList = () => {
                     <td className="px-6 py-4">{person.height}</td>
                     <td className="px-6 py-4">{person.mass} kg</td>
                     <td className="px-6 py-4">
-                      <Link href={person.url} className='text-blue-700'>
+                      <Link href={`/person/${person.url.split('/').slice(-2)[0]}`} className='text-blue-700'> 
                         Ver detalles
                       </Link>
                     </td>
@@ -84,6 +96,24 @@ const PersonList = () => {
             </tbody>
           </table>
         </div>
+
+        <div className="flex justify-center items-center">
+          <button
+            onClick={() => fetchPeople(person.previous)}
+            disabled={!person.previous}
+            className={`mx-2 px-4 py-2 font-semibold text-white rounded-lg ${person.previous ? 'bg-green-700 hover:bg-green-800' : 'bg-gray-300 cursor-not-allowed'}`}
+          >
+            Página Anterior
+          </button>
+          <button
+            onClick={() => fetchPeople(person.next)}
+            disabled={!person.next}
+            className={`mx-2 px-4 py-2 font-semibold text-white rounded-lg ${person.next ? 'bg-green-700 hover:bg-green-800' : 'bg-gray-300 cursor-not-allowed'}`}
+          >
+            Página Siguiente
+          </button>
+        </div>
+
       </div>
     </div>
   );

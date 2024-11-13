@@ -2,28 +2,26 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="mt-12 grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        Bienvenidos
+    <div className="mt-24 items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      <main className="text-2xl flex flex-col items-center">
+        <p>
+          Bienvenidos la aplicación de <b className="text-green-700">Star Wars </b> 
+          para prueba de <b className="text-green-700">Helipagos</b>
+        </p>
       </main>
 
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
+      <footer className="mt-36 flex flex-col items-center justify-center">
+        <p className="text-xl">
+          Creado por <b>Alejandro Schwartz</b>  
+        </p>
         <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+          className="mt-4 flex items-center text-blue-400 hover:underline hover:underline-offset-4"
+          href="https://alejandroschwartz.com.ar/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
+          ver mas en: alejandroschwartz.com.ar
         </a>
-        Creado por Alejandro Schwartz
       </footer>
     </div>
   );

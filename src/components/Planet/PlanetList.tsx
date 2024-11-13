@@ -35,20 +35,32 @@ const PlanetList = () => {
     previous: "",
     results: []
   });
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchPlanet = async (url?: string) => {
+    try {
+      const data = await getPlanets(url || '');
+      setPlanets(data);
+    } catch (err) {
+      setError('Failed to fetch planet data');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchPlanet = async () => {
-      const data = await getPlanets();
-      setPlanets(data);
-    };
     fetchPlanet();
   }, []);
+
+  if (loading) return <p className='text-center text-2xl mt-24'>Cargando lista de Planetas...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div className="mx-auto mt-12">
       <div className='max-w-7xl m-auto text-center'>
         <h1 className='text-xl md:text-4xl text-green-700 font-bold pt-12'>
-          Planet list
+          Lista de Planetas
         </h1>
         <div className="mt-3 mb-8 w-full mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -62,13 +74,13 @@ const PlanetList = () => {
             </thead>
             <tbody>
               {planets.results?.length > 0 ? (
-                planets.results?.map((person: Result) => (
-                  <tr key={person.url} className="bg-white border-b hover:bg-gray-50">
-                    <td className="px-6 py-4">{person.name}</td>
-                    <td className="px-6 py-4">{person.diameter} km</td>
-                    <td className="px-6 py-4">{person.population}</td>
+                planets.results?.map((item: Result) => (
+                  <tr key={item.url} className="bg-white border-b hover:bg-gray-50">
+                    <td className="px-6 py-4">{item.name}</td>
+                    <td className="px-6 py-4">{item.diameter} km</td>
+                    <td className="px-6 py-4">{item.population}</td>
                     <td className="px-6 py-4">
-                      <Link href={person.url} className='text-blue-700'>
+                      <Link href={`/planet/${item.url.split('/').slice(-2)[0]}`} className='text-blue-700'> 
                         Ver detalles
                       </Link>
                     </td>
@@ -83,6 +95,24 @@ const PlanetList = () => {
             </tbody>
           </table>
         </div>
+
+        <div className="flex justify-center items-center">
+          <button
+            onClick={() => fetchPlanet(planets.previous)}
+            disabled={!planets.previous}
+            className={`mx-2 px-4 py-2 font-semibold text-white rounded-lg ${planets.previous ? 'bg-green-700 hover:bg-green-800' : 'bg-gray-300 cursor-not-allowed'}`}
+          >
+            Página Anterior
+          </button>
+          <button
+            onClick={() => fetchPlanet(planets.next)}
+            disabled={!planets.next}
+            className={`mx-2 px-4 py-2 font-semibold text-white rounded-lg ${planets.next ? 'bg-green-700 hover:bg-green-800' : 'bg-gray-300 cursor-not-allowed'}`}
+          >
+            Página Siguiente
+          </button>
+        </div>
+
       </div>
     </div>
   );

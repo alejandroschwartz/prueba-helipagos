@@ -39,20 +39,32 @@ const StarshipList = () => {
     previous: "",
     results: []
   });
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchStarship = async (url?: string) => {
+    try {
+      const data = await getStarships(url || '');
+      setStarships(data);
+    } catch (err) {
+      setError('Failed to fetch starship data');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchPlanet = async () => {
-      const data = await getStarships();
-      setStarships(data);
-    };
-    fetchPlanet();
+    fetchStarship();
   }, []);
+
+  if (loading) return <p className='text-center text-2xl mt-24'>Cargando lista de Naves...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div className="mx-auto mt-12">
       <div className='max-w-7xl m-auto text-center'>
         <h1 className='text-xl md:text-4xl text-green-700 font-bold pt-12'>
-          Starship list
+          Lista de Naves
         </h1>
         <div className="mt-3 mb-8 w-full mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -72,7 +84,7 @@ const StarshipList = () => {
                     <td className="px-6 py-4">{item.manufacturer}</td>
                     <td className="px-6 py-4">{item.length} m</td>
                     <td className="px-6 py-4">
-                      <Link href={item.url} className='text-blue-700'>
+                      <Link href={`/starship/${item.url.split('/').slice(-2)[0]}`} className='text-blue-700'> 
                         Ver detalles
                       </Link>
                     </td>
@@ -87,6 +99,24 @@ const StarshipList = () => {
             </tbody>
           </table>
         </div>
+
+        <div className="flex justify-center items-center">
+          <button
+            onClick={() => fetchStarship(starships.previous)}
+            disabled={!starships.previous}
+            className={`mx-2 px-4 py-2 font-semibold text-white rounded-lg ${starships.previous ? 'bg-green-700 hover:bg-green-800' : 'bg-gray-300 cursor-not-allowed'}`}
+          >
+            Página Anterior
+          </button>
+          <button
+            onClick={() => fetchStarship(starships.next)}
+            disabled={!starships.next}
+            className={`mx-2 px-4 py-2 font-semibold text-white rounded-lg ${starships.next ? 'bg-green-700 hover:bg-green-800' : 'bg-gray-300 cursor-not-allowed'}`}
+          >
+            Página Siguiente
+          </button>
+        </div>
+
       </div>
     </div>
   );
