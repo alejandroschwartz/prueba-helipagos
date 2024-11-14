@@ -38,10 +38,11 @@ const PersonList = () => {
   });
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState<string>('');
 
-  const fetchPeople = async (url?: string) => {
+  const fetchPeople = async (url?: string, searchQuery?: string) => {
     try {
-      const data = await getPeople(url || '');
+      const data = await getPeople(url || '', searchQuery);
       setPerson(data);
     } catch (err) {
       setError('Failed to fetch people data');
@@ -50,11 +51,17 @@ const PersonList = () => {
     }
   };
 
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    fetchPeople('', search);
+  };
+
   useEffect(() => {
     fetchPeople();
   }, []);
 
-  if (loading) return <p className='text-center text-2xl mt-24'>Cargando lista de Personas...</p>;
+  if (loading) return <p className='text-center text-2xl my-24'>Cargando lista de Personas...</p>;
   if (error) return <p>{error}</p>;
 
   return (
@@ -63,6 +70,20 @@ const PersonList = () => {
         <h1 className='text-xl md:text-4xl text-green-700 font-bold pt-12'>
           Lista de Personas
         </h1>
+
+        <form onSubmit={handleSearch} className="mb-3 mt-4 flex flex-start">
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Buscar por nombre"
+            className="px-3 py-1 border rounded-l-lg text-md"
+          />
+          <button type="submit" className="px-3 py-1 border bg-green-700 text-white text-md rounded-r-lg">
+            Buscar
+          </button>
+        </form>
+
         <div className="mt-3 mb-8 w-full mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50">

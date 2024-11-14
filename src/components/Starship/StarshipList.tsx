@@ -41,10 +41,11 @@ const StarshipList = () => {
   });
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState<string>('');
 
-  const fetchStarship = async (url?: string) => {
+  const fetchStarship = async (url?: string, searchQuery?: string) => {
     try {
-      const data = await getStarships(url || '');
+      const data = await getStarships(url || '', searchQuery);
       setStarships(data);
     } catch (err) {
       setError('Failed to fetch starship data');
@@ -53,11 +54,17 @@ const StarshipList = () => {
     }
   };
 
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    fetchStarship('', search);
+  };
+
   useEffect(() => {
     fetchStarship();
   }, []);
 
-  if (loading) return <p className='text-center text-2xl mt-24'>Cargando lista de Naves...</p>;
+  if (loading) return <p className='text-center text-2xl my-24'>Cargando lista de Naves...</p>;
   if (error) return <p>{error}</p>;
 
   return (
@@ -66,6 +73,20 @@ const StarshipList = () => {
         <h1 className='text-xl md:text-4xl text-green-700 font-bold pt-12'>
           Lista de Naves
         </h1>
+
+        <form onSubmit={handleSearch} className="mb-3 mt-4 flex flex-start">
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Buscar por nombre"
+            className="px-3 py-1 border rounded-l-lg text-md"
+          />
+          <button type="submit" className="px-3 py-1 border bg-green-700 text-white text-md rounded-r-lg">
+            Buscar
+          </button>
+        </form>
+
         <div className="mt-3 mb-8 w-full mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
