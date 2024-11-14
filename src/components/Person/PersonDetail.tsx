@@ -2,14 +2,14 @@
 
 import React, { useEffect, useState } from 'react';
 import { getPerson } from '@/service/swapiService';
+import { Person } from '@/types/person';
 
 interface PersonDetailProps {
   id: string;
 }
 
 const PersonDetail: React.FC<PersonDetailProps> = ({ id }) => {
-  const [person, setPerson] = useState<any>(null);
-  console.log("🚀 ~ person:", person)
+  const [person, setPerson] = useState<Person>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -20,7 +20,7 @@ const PersonDetail: React.FC<PersonDetailProps> = ({ id }) => {
           const data = await getPerson(id as string);
           setPerson(data);
         } catch (err) {
-          setError('Failed to fetch person data');
+          setError(`Failed to fetch person data. Error: ${err}`);
         } finally {
           setLoading(false);
         }

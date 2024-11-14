@@ -2,13 +2,14 @@
 
 import React, { useEffect, useState } from 'react';
 import { getStarship } from '@/service/swapiService';
+import { Starship } from '@/types/starship';
 
 interface StarshipDetailProps {
   id: string;
 }
 
 const StarshipDetail: React.FC<StarshipDetailProps> = ({ id }) => {
-  const [starship, setStarship] = useState<any>(null);
+  const [starship, setStarship] = useState<Starship>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -19,7 +20,7 @@ const StarshipDetail: React.FC<StarshipDetailProps> = ({ id }) => {
           const data = await getStarship(id as string);
           setStarship(data);
         } catch (err) {
-          setError('Failed to fetch person data');
+          setError(`Failed to fetch person data. Error: ${err}`);
         } finally {
           setLoading(false);
         }
@@ -36,13 +37,18 @@ const StarshipDetail: React.FC<StarshipDetailProps> = ({ id }) => {
       <div className="mx-auto mt-12">
         <div className='max-w-3xl m-auto'>
           <p className='text-xl'><b>Nombre:</b> {starship.name}</p>
-          <p><b>Altura:</b> {starship.height}</p>
-          <p><b>Peso:</b> {starship.mass}</p>
-          <p><b>Color de cabello:</b> {starship.hair_color}</p>
-          <p><b>Color de ropa:</b> {starship.skin_color}</p>
-          <p><b>Color de ojos:</b> {starship.eye_color}</p>
-          <p><b>Cumpleaños:</b> {starship.birth_year}</p>
-          <p><b>Genero:</b> {starship.gender}</p>
+          <p><b>Modelo:</b> {starship.model}</p>
+          <p><b>Fabricante:</b> {starship.manufacturer}</p>
+          <p><b>Costo en creditos:</b> {starship.cost_in_credits}</p>
+          <p><b>Largo:</b> {starship.length}</p>
+          <p><b>Velocidad maxima atmosferica:</b> {starship.max_atmosphering_speed}</p>
+          <p><b>Tripulacion:</b> {starship.crew}</p>
+          <p><b>Pasajeros:</b> {starship.passengers}</p>
+          <p><b>Capacidad de carga:</b> {starship.cargo_capacity}</p>
+          <p><b>Consumibles:</b> {starship.consumables}</p>
+          <p><b>Calificacion de hiperimpulso:</b> {starship.hyperdrive_rating}</p>
+          <p><b>MGLT:</b> {starship.MGLT}</p>
+          <p><b>Clase de nave:</b> {starship.starship_class}</p>
         </div>
       </div>
     )}
