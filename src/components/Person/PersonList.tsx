@@ -3,31 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { getPeople } from '@/service/swapiService';
 import Link from 'next/link';
-
-export interface PersonData {
-  count: number;
-  next: string;
-  previous: string;
-  results: Result[];
-}
-
-export interface Result {
-  name: string;
-  height: string;
-  mass: string;
-  hair_color: string;
-  eye_color: string;
-  birth_year: string;
-  gender: string;
-  homeworld: string;
-  films: string[];
-  species: string[];
-  vehicles: string[];
-  starships: string[];
-  created: string;
-  edited: string;
-  url: string;
-}
+import { Person, PersonData } from '@/types/person';
 
 const PersonList = () => {
   const [person, setPerson] = useState<PersonData>({
@@ -45,7 +21,7 @@ const PersonList = () => {
       const data = await getPeople(url || '', searchQuery);
       setPerson(data);
     } catch (err) {
-      setError('Failed to fetch people data');
+      setError(`Failed to fetch people data. Error: ${err}`);
     } finally {
       setLoading(false);
     }
@@ -96,7 +72,7 @@ const PersonList = () => {
             </thead>
             <tbody>
               {person.results?.length > 0 ? (
-                person.results?.map((person: Result) => (
+                person.results?.map((person: Person) => (
                   <tr key={person.url} className="bg-white border-b hover:bg-gray-50">
                     <td className="px-6 py-4">{person.name}</td>
                     <td className="px-6 py-4">{person.height}</td>

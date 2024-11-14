@@ -3,33 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import { getPlanets } from '@/service/swapiService';
 import Link from 'next/link';
-
-export interface PersonData {
-  count: number;
-  next: string;
-  previous: string;
-  results: Result[];
-}
-
-export interface Result {
-  name: string;
-  rotation_period: string;
-  orbital_period: string;
-  diameter: string;
-  climate: string;
-  gravity: string;
-  terrain: string;
-  surface_water: string;
-  population: string;
-  residents: string[];
-  films: string[];
-  created: string;
-  edited: string;
-  url: string;
-}
+import { Planet, PlanetData } from '@/types/planet';
 
 const PlanetList = () => {
-  const [planets, setPlanets] = useState<PersonData>({
+  const [planets, setPlanets] = useState<PlanetData>({
     count: 0,
     next: "",
     previous: "",
@@ -44,7 +21,7 @@ const PlanetList = () => {
       const data = await getPlanets(url || '', searchQuery);
       setPlanets(data);
     } catch (err) {
-      setError('Failed to fetch planet data');
+      setError(`Failed to fetch planet data. Error: ${err}`);
     } finally {
       setLoading(false);
     }
@@ -95,7 +72,7 @@ const PlanetList = () => {
             </thead>
             <tbody>
               {planets.results?.length > 0 ? (
-                planets.results?.map((item: Result) => (
+                planets.results?.map((item: Planet) => (
                   <tr key={item.url} className="bg-white border-b hover:bg-gray-50">
                     <td className="px-6 py-4">{item.name}</td>
                     <td className="px-6 py-4">{item.diameter} km</td>

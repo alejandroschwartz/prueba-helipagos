@@ -3,37 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import { getStarships } from '@/service/swapiService';
 import Link from 'next/link';
-
-export interface PersonData {
-  count: number;
-  next: string;
-  previous: string;
-  results: Result[];
-}
-
-export interface Result {
-  name: string;
-  model: string;
-  manufacturer: string;
-  cost_in_credits: string;
-  length: string;
-  max_atmosphering_speed: string;
-  crew: string;
-  passengers: string;
-  cargo_capacity: string;
-  consumables: string;
-  hyperdrive_rating: string;
-  MGLT: string;
-  starship_class: string;
-  pilots: string[];
-  films: string[];
-  created: string;
-  edited: string;
-  url: string;
-}
+import { Starship, StarshipData } from '@/types/starship';
 
 const StarshipList = () => {
-  const [starships, setStarships] = useState<PersonData>({
+  const [starships, setStarships] = useState<StarshipData>({
     count: 0,
     next: "",
     previous: "",
@@ -48,7 +21,7 @@ const StarshipList = () => {
       const data = await getStarships(url || '', searchQuery);
       setStarships(data);
     } catch (err) {
-      setError('Failed to fetch starship data');
+      setError(`Failed to fetch starship data. Error: ${err}`);
     } finally {
       setLoading(false);
     }
@@ -99,7 +72,7 @@ const StarshipList = () => {
             </thead>
             <tbody>
               {starships.results?.length > 0 ? (
-                starships.results?.map((item: Result) => (
+                starships.results?.map((item: Starship) => (
                   <tr key={item.url} className="bg-white border-b hover:bg-gray-50">
                     <td className="px-6 py-4">{item.name}</td>
                     <td className="px-6 py-4">{item.manufacturer}</td>
