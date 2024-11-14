@@ -19,7 +19,7 @@ export default function Navbar() {
                 href="/person"
                 className="text-black font-bold transition-colors hover:text-green-600 underline-offset-4"
               >
-                Person
+                Personajes
               </Link>
             </li>
             <li>
@@ -27,7 +27,7 @@ export default function Navbar() {
                 href="/planet"
                 className="text-black font-bold transition-colors hover:text-green-600 underline-offset-4"
               >
-                Planet
+                Planetas
               </Link>
             </li>
             <li>
@@ -35,7 +35,7 @@ export default function Navbar() {
                 href="/starship"
                 className="text-black font-bold transition-colors hover:text-green-600 underline-offset-4"
               >
-                Starship
+                Naves
               </Link>
             </li>
           </ul>
