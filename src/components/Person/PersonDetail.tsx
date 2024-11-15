@@ -34,7 +34,7 @@ const PersonDetail: React.FC<PersonDetailProps> = ({ id }) => {
 
   return (<>  
     {(person && !!person.name) ? (
-      <div className="mx-auto mt-12">
+      <div className="mx-auto mt-12 px-2">
         <div className='max-w-3xl m-auto'>
           <p className='text-xl'><b>Nombre:</b> {person.name}</p>
           <p><b>Altura:</b> {person.height}</p>

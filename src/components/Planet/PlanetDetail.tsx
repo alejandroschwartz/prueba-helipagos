@@ -34,7 +34,7 @@ const PlanetDetail: React.FC<PlanetDetailProps> = ({ id }) => {
 
   return (<>  
     {planet && (
-      <div className="mx-auto mt-12">
+      <div className="mx-auto mt-12 px-2">
         <div className='max-w-3xl m-auto'>
           <p className='text-xl'><b>Nombre:</b> {planet.name}</p>
           <p><b>Rotacion:</b> {planet.rotation_period}</p>

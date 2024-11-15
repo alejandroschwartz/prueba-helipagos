@@ -34,7 +34,7 @@ const StarshipDetail: React.FC<StarshipDetailProps> = ({ id }) => {
 
   return (<>  
     {starship && (
-      <div className="mx-auto mt-12">
+      <div className="mx-auto mt-12 px-2">
         <div className='max-w-3xl m-auto'>
           <p className='text-xl'><b>Nombre:</b> {starship.name}</p>
           <p><b>Modelo:</b> {starship.model}</p>
