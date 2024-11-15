@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Prueba de consultar API y autenticaión de Helipagos
 
-## Getting Started
+Aplicación que consume datos de una API de Star Wars para mostrar un listado de Personajes, Planetas y Naves, pudiendo paginar los resultados, filtrar por nombre y ver página de detalles. Tambien poseé un login a traves de la API de Helipagos. La aplicaión se realizó para usarla en mobile o desktop.  
 
-First, run the development server:
+Link al proyecto: [https://prueba-helipagos.vercel.app/](https://prueba-helipagos.vercel.app/)
+
+![](https://res.cloudinary.com/dhdhpvhkg/image/upload/c_scale,q_80,w_1280/v1731636599/examen/prueba-helipagos-2.webp)
+
+
+
+## Descripción de las tareas a desarrollar
+
+La aplicación deberá implementar las siguientes funcionalidades base: 
+
+1. **Listado de Personas:** Se mostrará un listado de personas obtenidas desde la API de SWAPI. Se deberá incluir la capacidad de buscar personas por nombre y ver el detalle de cada una.
+
+2. **Listado de Planetas:** Se deberá implementar una lista de planetas, con una funcionalidad de búsqueda por nombre y la capacidad de ver detalles de cada planeta.
+
+3. **Listado de Naves (Starships):** La aplicación mostrará un listado de naves, permitiendo búsquedas específicas por nombre y visualización del detalle de cada nave.
+
+4. **Conexión con Helipagos API:** Se deberá de realizar una conexión con la autenticación de Helipagos y generar la intercepción HTTP correspondiente para el manejo del access token
+
+
+
+## Criterios de Evaluación
+
+1. **Uso de la tecnología seleccionada:**
+Evaluación de las habilidades para estructurar la aplicación usando componentes, servicios e interfaces en Angular o en React usando componentes, hooks y actions. Se valorará la organización del código siguiendo principios de arquitectura limpia (screaming architecture).
+
+2. **Hooks/Directivas Custom:**
+Creación y uso de hooks o directivas personalizadas para extender la funcionalidad de la aplicación.
+
+3. **Pruebas Unitarias:**
+Implementación de pruebas unitarias que cubran al menos el 60% de la aplicación.
+
+4. **Servicios e Interfaz de Usuario:**
+Implementación de servicios preparados para la conexión con la API y manipulación de datos.
+
+5. **Interfaz de Usuario:**
+La interfaz debe ser intuitiva, con un diseño visualmente atractivo.
+
+
+
+## Desarrollo e instalación del proyecto
+
+El proyecto lo realicé con Next.js 14, utilizando React y la librería de estilos Tailwind. 
+
+### Para instalarlo, ejecutar:
 
 ```bash
+# para instalar las dependencias
+npm i
+
+# para correr la aplicación en local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# para buildear aplicación en modo desarrollo
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Corre en el puerto [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Manejo de ramas (Branches) y Pull Requests
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Seguí el modelo de repositorios y ramas basado en gitflow, sacando ramas desde main para luego realizar el merge al mismo.
 
-## Learn More
+Ver mas en detalle en [https://github.com/alejandroschwartz/prueba-helipagos/branches/all](https://github.com/alejandroschwartz/prueba-helipagos/branches/all)
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Detalles extras
 
-## Deploy on Vercel
+- Verfique los rendimientos de lighthouse: Para tener el mejor rendimiento tanto para el usuario como para el posicionamiento SEO en Google.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![](https://res.cloudinary.com/dhdhpvhkg/image/upload/c_scale,q_80,w_1280/v1731636599/examen/prueba-helipagos-1.webp)
