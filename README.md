@@ -43,7 +43,7 @@ La interfaz debe ser intuitiva, con un diseño visualmente atractivo.
 
 ## Desarrollo e instalación del proyecto
 
-El proyecto lo realicé con Next.js 14, utilizando React y la librería de estilos Tailwind. 
+El proyecto lo realicé con Next.js 14, utilizando React y la librería de estilos Tailwind. La version de npm es v20.17.0
 
 ### Para instalarlo, ejecutar:
 
@@ -59,6 +59,13 @@ npm run build
 ```
 
 Corre en el puerto [http://localhost:3000](http://localhost:3000)
+
+### Para ver los test, ejecutar:
+
+```bash
+# para correr los test
+npm test
+```
 
 ### Manejo de ramas (Branches) y Pull Requests
 
