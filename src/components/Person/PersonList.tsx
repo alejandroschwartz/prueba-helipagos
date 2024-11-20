@@ -4,9 +4,11 @@ import React, { useEffect, useState } from 'react';
 import { getPeople } from '@/service/swapiService';
 import Link from 'next/link';
 import { Person, PersonData } from '@/types/person';
+import Pagination from '../Pagination';
+import SearchInput from '../SearchInput';
 
 const PersonList = () => {
-  const [person, setPerson] = useState<PersonData>({
+  const [data, setData] = useState<PersonData>({
     count: 0,
     next: "",
     previous: "",
@@ -16,10 +18,10 @@ const PersonList = () => {
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState<string>('');
 
-  const fetchPeople = async (url?: string, searchQuery?: string) => {
+  const fetchData = async (url?: string, searchQuery?: string) => {
     try {
-      const data = await getPeople(url || '', searchQuery);
-      setPerson(data);
+      const getData = await getPeople(url || '', searchQuery);
+      setData(getData);
     } catch (err) {
       setError(`Failed to fetch people data. Error: ${err}`);
     } finally {
@@ -30,11 +32,11 @@ const PersonList = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    fetchPeople('', search);
+    fetchData('', search);
   };
 
   useEffect(() => {
-    fetchPeople();
+    fetchData();
   }, []);
 
   if (loading) return <p className='text-center text-2xl my-24'>Cargando lista de Personas...</p>;
@@ -42,19 +44,7 @@ const PersonList = () => {
 
   return (
     <>
-      <form onSubmit={handleSearch} className="mb-3 mt-4 flex flex-start">
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Buscar por nombre"
-          className="px-3 py-1 border rounded-l-lg text-md"
-        />
-        <button type="submit" className="px-3 py-1 border bg-green-700 text-white text-md rounded-r-lg">
-          Buscar
-        </button>
-      </form>
-
+      <SearchInput search={search} setSearch={setSearch} handleSearch={handleSearch} />
       <div className="mt-3 mb-8 w-full mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50">
@@ -66,8 +56,8 @@ const PersonList = () => {
             </tr>
           </thead>
           <tbody>
-            {person?.results?.length > 0 ? (
-              person.results?.map((person: Person) => (
+            {data?.results?.length > 0 ? (
+              data.results?.map((person: Person) => (
                 <tr key={person.url} className="bg-white border-b hover:bg-gray-50">
                   <td className="px-6 py-4">{person.name}</td>
                   <td className="px-6 py-4">{person.height}</td>
@@ -89,7 +79,9 @@ const PersonList = () => {
         </table>
       </div>
 
-      <div className="flex justify-center items-center">
+      <Pagination data={data} fetchData={fetchData} />
+
+      {/* <div className="flex justify-center items-center">
         <button
           onClick={() => fetchPeople(person?.previous)}
           disabled={!person?.previous}
@@ -104,7 +96,8 @@ const PersonList = () => {
         >
           Página Siguiente
         </button>
-      </div>
+      </div> */}
+
     </>
   );
 };
