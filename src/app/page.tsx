@@ -5,10 +5,10 @@ export default function Home() {
   return (
     <div className="my-24 items-center justify-items-center font-[family-name:var(--font-geist-sans)]">
       <main className="m-3 pb-12 text-3xl flex flex-col items-center text-center">
-        <p>
+        <h1>
           Bienvenidos la aplicación de <b className="text-green-700">Star Wars </b> <br/>
           para prueba de <b className="text-green-700">Helipagos</b>.
-        </p>
+        </h1>
       </main>
 
       <div className="w-full flex flex-wrap justify-center bg-green-700 my-12 py-12">
@@ -20,7 +20,7 @@ export default function Home() {
                 Aqui encontrará una lista de personajes de la saga de Star Wars.
               </p>
               <Link href="/person" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-                VER MAS
+                VER PERSONAJES
               </Link>
             </div>
         </div>
@@ -32,7 +32,7 @@ export default function Home() {
                 Aqui encontrará una lista de planetas de la saga de Star Wars.
               </p>
               <Link href="/planet" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-                VER MAS
+                VER PLANETAS
               </Link>
             </div>
         </div>
@@ -44,7 +44,7 @@ export default function Home() {
                 Aqui encontrará una lista de naves espaciales de la saga de Star Wars.
               </p>
               <Link href="/starship" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-                VER MAS
+                VER NAVES
               </Link>
             </div>
         </div>
