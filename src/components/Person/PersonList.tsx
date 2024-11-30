@@ -78,26 +78,7 @@ const PersonList = () => {
           </tbody>
         </table>
       </div>
-
       <Pagination data={data} fetchData={fetchData} />
-
-      {/* <div className="flex justify-center items-center">
-        <button
-          onClick={() => fetchPeople(person?.previous)}
-          disabled={!person?.previous}
-          className={`mx-2 px-4 py-2 font-semibold text-white rounded-lg ${person?.previous ? 'bg-green-700 hover:bg-green-800' : 'bg-gray-300 cursor-not-allowed'}`}
-        >
-          Página Anterior
-        </button>
-        <button
-          onClick={() => fetchPeople(person?.next)}
-          disabled={!person?.next}
-          className={`mx-2 px-4 py-2 font-semibold text-white rounded-lg ${person?.next ? 'bg-green-700 hover:bg-green-800' : 'bg-gray-300 cursor-not-allowed'}`}
-        >
-          Página Siguiente
-        </button>
-      </div> */}
-
     </>
   );
 };

@@ -60,11 +60,28 @@ npm run build
 
 Corre en el puerto [http://localhost:3000](http://localhost:3000)
 
-### Para ver los test, ejecutar:
+### Test unitarios con Jest y Testing Library
+
+Para ver los test, ejecutar por consola:
 
 ```bash
 # para correr los test
 npm test
+```
+
+### Test E2E con Cypress
+
+Para ver los test, ejecutar por consola:
+
+```bash
+# levantar la app en localhost:3000 con
+npm run dev
+
+# correr en otra terminal comando de test para levantar el desarrollo
+npm run cypress:open
+
+# correr en otra terminal comando de test para levantar en produción, para CI/CD
+npx cypress run
 ```
 
 ### Manejo de ramas (Branches) y Pull Requests
